@@ -2,14 +2,16 @@ package com.grupo2.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="reservation")
-public class Reservation {
+public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idReservation")
     private Integer idReservation;
 
     private Date startDate;
@@ -19,15 +21,13 @@ public class Reservation {
     private String status= "created";
 
     @ManyToOne
-    @JoinColumn(name = "costumeId")
+    @JoinColumn(name = "costumesId")
     @JsonIgnoreProperties("reservations")
     private Costume costume;
     @ManyToOne
     @JoinColumn(name = "clientId")
     @JsonIgnoreProperties({"reservations", "messages"})
     private Client client;
-
-
 
     @OneToOne(mappedBy = "reservations")
     @JsonIgnoreProperties("reservations")

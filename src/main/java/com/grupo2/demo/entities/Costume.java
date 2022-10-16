@@ -22,11 +22,11 @@ public class Costume implements Serializable {
     @JsonIgnoreProperties("costumes")
     private Category category;
 
-    @OneToMany(mappedBy = "costume")
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "costume")
     @JsonIgnoreProperties({"costume","client"})
     private List<Message> messages;
 
-    @OneToMany(mappedBy = "costume")
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "costume")
     @JsonIgnoreProperties({"costume","client"})
     private List<Reservation> reservations;
 

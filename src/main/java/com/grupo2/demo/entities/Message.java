@@ -9,11 +9,12 @@ import java.io.Serializable;
 public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idMessage")
     private Integer idMessage;
     private String messageText;
 
     @ManyToOne
-    @JoinColumn(name="costumeId")
+    @JoinColumn(name="costId")
     @JsonIgnoreProperties({"messages","reservations"})
     private Costume costume;
 
