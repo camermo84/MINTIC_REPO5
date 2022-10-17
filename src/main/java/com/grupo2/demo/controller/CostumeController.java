@@ -2,12 +2,20 @@ package com.grupo2.demo.controller;
 
 import com.grupo2.demo.entities.Costume;
 import com.grupo2.demo.service.CostumeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+import java.util.Optional;
+@CrossOrigin(origins="*",methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 @RestController
 @RequestMapping("api/Costume")
 public class CostumeController {
@@ -16,35 +24,27 @@ public class CostumeController {
     private CostumeService costumeService;
 
     @GetMapping("/all")
-    @PostMapping("/all")
     public List<Costume> getAll(){
         return costumeService.getAll();
     }
-
-
-    @PostMapping("/all")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<Costume> getAll2(){
-        return costumeService.getAll();
+    @GetMapping("/{id}")
+    public Optional<Costume> getCostume(@PathVariable("id") int id){
+        return costumeService.getCostume(id);
     }
-
-
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Costume save (@RequestBody Costume costume){
+    public Costume save(@RequestBody Costume costume){
         return costumeService.save(costume);
     }
-
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Costume update(@RequestBody Costume costume ){
+    public Costume update(@RequestBody Costume costume){
         return costumeService.update(costume);
     }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int id){
-        return costumeService.deleteCustome( id);
-    }
+   // @DeleteMapping("/{id}")
+    //@ResponseStatus(HttpStatus.CREATED)
+   // public boolean delete(@PathVariable("id") int id){
+       // return costumeService.deleteCustome(id);
+   // }
 }
 

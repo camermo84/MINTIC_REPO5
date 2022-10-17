@@ -14,6 +14,7 @@ public class Costume implements Serializable {
     private Integer id;
     private String name;
     private String brand;
+    @Column(name = "years")
     private Integer year;
     private String description;
 
@@ -27,7 +28,7 @@ public class Costume implements Serializable {
     private List<Message> messages;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "costume")
-    @JsonIgnoreProperties({"costume","client"})
+    @JsonIgnoreProperties({"costume","messages"})
     private List<Reservation> reservations;
 
     public List<Message> getMessages() {
@@ -91,18 +92,6 @@ public class Costume implements Serializable {
     }
 
     public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Costume() {
-    }
-
-    public Costume(Integer id, String name, String brand, Integer year, String description, Category category) {
-        this.id = id;
-        this.name = name;
-        this.brand = brand;
-        this.year = year;
-        this.description = description;
         this.category = category;
     }
 

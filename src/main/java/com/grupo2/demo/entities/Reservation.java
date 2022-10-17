@@ -21,7 +21,7 @@ public class Reservation implements Serializable {
     private String status= "created";
 
     @ManyToOne
-    @JoinColumn(name = "costumesId")
+    @JoinColumn(name = "costumeId")
     @JsonIgnoreProperties("reservations")
     private Costume costume;
     @ManyToOne
@@ -32,15 +32,6 @@ public class Reservation implements Serializable {
     @OneToOne(mappedBy = "reservations")
     @JsonIgnoreProperties("reservations")
     private Score score;
-
-
-    public Score getScore() {
-        return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
-    }
 
     public Integer getIdReservation() {
         return idReservation;
@@ -74,14 +65,6 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public Costume getCostume() {
         return costume;
     }
@@ -90,15 +73,20 @@ public class Reservation implements Serializable {
         this.costume = costume;
     }
 
-    public Reservation() {
+    public Client getClient() {
+        return client;
     }
 
-    public Reservation(Integer idReservation, Date startDate, Date devolutionDate, String status) {
-        this.idReservation = idReservation;
-        this.startDate = startDate;
-        this.devolutionDate = devolutionDate;
-        this.status = status;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
+    }
 }
 

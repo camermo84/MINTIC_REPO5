@@ -14,64 +14,40 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public List<Category> getAll(){
-        return categoryRepository.getAll();
+        return (List<Category>)categoryRepository.getAll();
     }
 
     public Optional<Category> getCategory(int id){
         return categoryRepository.getCategory(id);
     }
 
-    public Category save(Category p){
-        if (p.getId()==null){
-            return categoryRepository.save(p);
-        }else {
-            Optional<Category> e = categoryRepository.getCategory(p.getId());
-            if (e.isPresent()){
-                return p;
-            }else{
-                return categoryRepository.save(p);
-            }
-        }
-    }
-
-
-    public Category update(Category category){
-        if (category.getId()!=null){
-            Optional<Category> q = categoryRepository.getCategory(category.getId());
-            if (q.isPresent()){
-                if (category.getDescription() !=null) {
-                    q.get().setDescription(category.getDescription());
-                }if (category.getName()!=null){
-                    q.get().setName(category.getName());
+    public Category save(Category category){
+        if (validarCampos(category)) {
+            if (category.getId() == null) {
+                return categoryRepository.save(category);
+            } else {
+                Optional<Category> categoryEncontrado = getCategory(category.getId());
+                if (categoryEncontrado.isEmpty()) {
+                    return categoryRepository.save(category);
+                } else {
+                    return category;
                 }
-                return categoryRepository.save(q.get());
             }
         }
         return category;
     }
 
-
-    public boolean deleteCategory (int id){
-        return getCategory(id).map(category -> {
-            categoryRepository.delete(category);
+    public boolean delete (int id){
+        Boolean resultado = getCategory(id).map(elemento ->{
+            categoryRepository.delete(elemento);
             return true;
-        }).orElse(false);
+        } ).orElse(false);
+        return resultado;
     }
 
-
-
-
-
-//    public boolean deleteCategory (int id){
-//        boolean flag =false;
-//        Optional<Category>p= categoryRepository.getCategory(id);
-//        if (p.isPresent()){
-//            categoryRepository.delete(p.get());
-//            flag=true;
-//        }
-//        return flag;
-//    }
-
+    public boolean validarCampos(Category category){
+        return (category.getName().length()<=45 && category.getDescription().length()<=250);
+    }
 
 
 }
