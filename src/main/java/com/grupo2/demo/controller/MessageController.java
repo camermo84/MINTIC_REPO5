@@ -40,10 +40,11 @@ public class MessageController {
     public Message update(@RequestBody Message message){
         return messageService.update(message);
     }
-    //@DeleteMapping("/{id}")
-    //@ResponseStatus(HttpStatus.CREATED)
-    //public boolean delete(@PathVariable("id") int id){
-       // return messageService.deleteMessage(id);
-    //}
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean delete(@PathVariable("id") int id){
+       return messageService.delete(id);
+    }
 }
 

@@ -41,10 +41,11 @@ public class CostumeController {
     public Costume update(@RequestBody Costume costume){
         return costumeService.update(costume);
     }
-   // @DeleteMapping("/{id}")
-    //@ResponseStatus(HttpStatus.CREATED)
-   // public boolean delete(@PathVariable("id") int id){
-       // return costumeService.deleteCustome(id);
-   // }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean delete(@PathVariable("id") int id){
+       return costumeService.delete(id);
+  }
 }
 

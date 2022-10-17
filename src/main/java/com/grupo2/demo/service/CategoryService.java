@@ -20,34 +20,41 @@ public class CategoryService {
     public Optional<Category> getCategory(int id){
         return categoryRepository.getCategory(id);
     }
-
-    public Category save(Category category){
-        if (validarCampos(category)) {
-            if (category.getId() == null) {
+    public Category save(Category category) {
+        if (category.getId() == null) {
+            return categoryRepository.save(category);
+        } else {
+            Optional<Category> category1 = categoryRepository.getCategory(category.getId());
+            if (category1.isEmpty()) {
                 return categoryRepository.save(category);
             } else {
-                Optional<Category> categoryEncontrado = getCategory(category.getId());
-                if (categoryEncontrado.isEmpty()) {
-                    return categoryRepository.save(category);
-                } else {
-                    return category;
+                return category;
+            }
+        }
+    }
+
+    public Category update(Category category){
+        if(category.getId()!=null){
+            Optional<Category>g= categoryRepository.getCategory(category.getId());
+            if(!g.isEmpty()){
+                if(category.getDescription()!=null){
+                    g.get().setDescription(category.getDescription());
                 }
+                if(category.getName()!=null){
+                    g.get().setName(category.getName());
+                }
+                return categoryRepository.save(g.get());
             }
         }
         return category;
     }
 
-    public boolean delete (int id){
-        Boolean resultado = getCategory(id).map(elemento ->{
-            categoryRepository.delete(elemento);
+    public boolean delete(int categoryId){
+        Boolean d=getCategory(categoryId).map(category -> {
+            categoryRepository.delete(category);
             return true;
-        } ).orElse(false);
-        return resultado;
+        }).orElse(false);
+        return d;
     }
-
-    public boolean validarCampos(Category category){
-        return (category.getName().length()<=45 && category.getDescription().length()<=250);
-    }
-
 
 }

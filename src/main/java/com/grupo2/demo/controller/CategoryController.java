@@ -36,16 +36,15 @@ public class CategoryController {
     public Category save(@RequestBody Category category){
         return categoryService.save(category);
     }
-   // @PutMapping("/update")
-    //@ResponseStatus(HttpStatus.CREATED)
-   // public Category update(@RequestBody Category category){
-      //  return categoryService.update(category);
-    //}
-    //@DeleteMapping("/{id}")
-    //@ResponseStatus(HttpStatus.CREATED)
-    //public boolean delete(@PathVariable("id") int id){
-        //return categoryService.deleteCategory(id);
-   // }
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category update(@RequestBody Category category){
+        return categoryService.update(category);}
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean delete(@PathVariable("id") int id){
+        return categoryService.delete(id);
+   }
 
 }
 
