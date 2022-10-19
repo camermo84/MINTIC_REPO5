@@ -36,13 +36,13 @@ public class ClientController {
     }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client save(@RequestBody Client client){
+    public Client save( Client client){
         return clientService.save(client);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client update(@RequestBody Client client){
+    public Client update( Client client){
         return clientService.update(client);
     }
 

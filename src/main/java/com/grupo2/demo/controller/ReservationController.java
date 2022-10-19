@@ -32,12 +32,12 @@ public class ReservationController {
     }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation save(@RequestBody Reservation reservation){
+    public Reservation save( Reservation reservation){
         return reservationService.save(reservation);
     }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation update(@RequestBody Reservation reservation){
+    public Reservation update( Reservation reservation){
         return reservationService.update(reservation);
     }
     @DeleteMapping("/{id}")

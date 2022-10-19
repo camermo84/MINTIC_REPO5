@@ -32,12 +32,12 @@ public class MessageController {
     }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Message save(@RequestBody Message message){
+    public Message save( Message message){
         return messageService.save(message);
     }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Message update(@RequestBody Message message){
+    public Message update( Message message){
         return messageService.update(message);
     }
 
